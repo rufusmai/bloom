@@ -9,13 +9,29 @@ Open source, privacy-first cycle tracker. Monorepo:
 
 ## Git commits
 
-- Commit as **Rufus Maiwald <mail@rufusmai.com>**. Set this before the first commit in a session:
+- Commit as **Rufus Maiwald <mail@rufusmai.com>** and sign every commit with the SSH signing key
+  from the `GIT_SIGNING_KEY` environment variable (base64 of a dedicated, passphrase-less ed25519
+  private key used only for cloud sessions). Run this once before the first commit in a session:
 
   ```bash
   git config user.name "Rufus Maiwald"
   git config user.email "mail@rufusmai.com"
+  if [ -n "$GIT_SIGNING_KEY" ]; then
+    command -v ssh-keygen >/dev/null || { apt-get update -qq && apt-get install -y -qq openssh-client >/dev/null; }
+    install -d -m 700 ~/.ssh
+    printf '%s' "$GIT_SIGNING_KEY" | base64 -d > ~/.ssh/git_signing_key
+    chmod 600 ~/.ssh/git_signing_key
+    echo "mail@rufusmai.com $(ssh-keygen -y -f ~/.ssh/git_signing_key)" > ~/.ssh/allowed_signers
+    git config gpg.format ssh
+    git config user.signingkey ~/.ssh/git_signing_key
+    git config gpg.ssh.allowedSignersFile ~/.ssh/allowed_signers
+    git config commit.gpgsign true
+  fi
   ```
 
+- Check with `git log --show-signature -1` that the commit has a good signature. If `GIT_SIGNING_KEY`
+  is not set or signing fails, tell Rufus before pushing unsigned commits.
+- Never print, log or commit the key.
 - Do not add `Co-Authored-By`, `Claude-Session` or any other Claude attribution to commit messages.
 
 ## Working on iOS
