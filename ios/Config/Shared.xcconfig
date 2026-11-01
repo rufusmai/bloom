@@ -1,0 +1,13 @@
+// Shared build settings for all configurations.
+//
+// To run bloom on your own device, copy Local.xcconfig.example to Local.xcconfig
+// (git-ignored) and set your own DEVELOPMENT_TEAM and BLOOM_BUNDLE_ID there.
+
+MARKETING_VERSION = 0.1.0
+CURRENT_PROJECT_VERSION = 1
+
+BLOOM_BUNDLE_ID = com.rufusmai.bloom
+CODE_SIGN_STYLE = Automatic
+DEVELOPMENT_TEAM =
+
+#include? "Local.xcconfig"

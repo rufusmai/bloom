@@ -1,0 +1,4 @@
+// Copy to Local.xcconfig (git-ignored) to override signing for your machine.
+
+DEVELOPMENT_TEAM = ABCDE12345
+BLOOM_BUNDLE_ID = com.example.bloom

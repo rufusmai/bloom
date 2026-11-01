@@ -1,0 +1,84 @@
+# XcodeGen spec – generate the Xcode project with `make project` (or `xcodegen generate`).
+# The generated Bloom.xcodeproj is not checked in.
+name: Bloom
+
+options:
+  bundleIdPrefix: com.rufusmai
+  developmentLanguage: en
+  deploymentTarget:
+    iOS: "26.0"
+  createIntermediateGroups: true
+  groupSortPosition: top
+
+configFiles:
+  Debug: Config/Shared.xcconfig
+  Release: Config/Shared.xcconfig
+
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    SWIFT_STRICT_CONCURRENCY: complete
+    LOCALIZATION_PREFERS_STRING_CATALOGS: YES
+    SWIFT_EMIT_LOC_STRINGS: YES
+    ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS: NO
+    ENABLE_USER_SCRIPT_SANDBOXING: YES
+    DEAD_CODE_STRIPPING: YES
+
+packages:
+  BloomKit:
+    path: Packages/BloomKit
+
+targets:
+  Bloom:
+    type: application
+    platform: iOS
+    sources:
+      - path: Bloom
+        excludes:
+          - "Resources/PrivacyInfo.xcprivacy"
+      - path: Bloom/Resources/PrivacyInfo.xcprivacy
+        buildPhase: resources
+    dependencies:
+      - package: BloomKit
+    settings:
+      base:
+        PRODUCT_NAME: Bloom
+        PRODUCT_BUNDLE_IDENTIFIER: $(BLOOM_BUNDLE_ID)
+        TARGETED_DEVICE_FAMILY: "1"
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_CFBundleDisplayName: bloom
+        INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.healthcare-fitness
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: UIInterfaceOrientationPortrait
+        INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+
+  BloomTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: BloomTests
+    dependencies:
+      - target: Bloom
+      - package: BloomKit
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: $(BLOOM_BUNDLE_ID).tests
+        GENERATE_INFOPLIST_FILE: YES
+
+schemes:
+  Bloom:
+    build:
+      targets:
+        Bloom: all
+        BloomTests: [test]
+    run:
+      config: Debug
+    test:
+      config: Debug
+      gatherCoverageData: true
+      targets:
+        - BloomTests
+    archive:
+      config: Release
