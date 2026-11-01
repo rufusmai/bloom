@@ -62,4 +62,4 @@ no network calls, no analytics and no third-party dependencies in the apps.
 
 ## License
 
-[GPL-3.0](LICENSE) © Rufus Mai
+[GPL-3.0](LICENSE) © Rufus Maiwald
