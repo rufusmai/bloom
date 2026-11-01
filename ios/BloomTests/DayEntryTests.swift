@@ -8,16 +8,15 @@ import BloomKit
 struct DayEntryTests {
     private let day = CalendarDay(year: 2026, month: 10, day: 31)
 
-    private var fullLog: DayLog {
-        DayLog(
-            day: day,
-            flow: .heavy,
-            symptoms: [.cramps, .breastTenderness],
-            discharge: .eggWhite,
-            sexualActivities: [SexualActivity(protection: .unprotected), SexualActivity(protection: .protected)],
-            note: "Felt tired"
-        )
-    }
+    /// Stored once per test, so the activity IDs stay stable within a test.
+    private let fullLog = DayLog(
+        day: CalendarDay(year: 2026, month: 10, day: 31),
+        flow: .heavy,
+        symptoms: [.cramps, .breastTenderness],
+        discharge: .eggWhite,
+        sexualActivities: [SexualActivity(protection: .unprotected), SexualActivity(protection: .protected)],
+        note: "Felt tired"
+    )
 
     @Test func mappingRoundTrip() {
         let entry = DayEntry(log: fullLog)
