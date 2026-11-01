@@ -23,6 +23,7 @@ Open source, privacy-first cycle tracker. Monorepo:
     chmod 600 ~/.ssh/git_signing_key
     echo "mail@rufusmai.com $(ssh-keygen -y -f ~/.ssh/git_signing_key)" > ~/.ssh/allowed_signers
     git config gpg.format ssh
+    git config gpg.ssh.program ssh-keygen
     git config user.signingkey ~/.ssh/git_signing_key
     git config gpg.ssh.allowedSignersFile ~/.ssh/allowed_signers
     git config commit.gpgsign true
