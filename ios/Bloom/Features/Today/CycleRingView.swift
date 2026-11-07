@@ -28,9 +28,11 @@ struct CycleRingView: View {
                         .font(.system(size: 64, weight: .bold, design: .rounded))
                         .contentTransition(.numericText())
                 } else {
+                    // Decorative: the headline below already says to log a period.
                     Image(systemName: "camera.macro")
                         .font(.system(size: 56))
                         .foregroundStyle(BloomColor.accent)
+                        .accessibilityHidden(true)
                 }
             }
         }
