@@ -168,7 +168,8 @@ public struct CyclePredictor: Sendable {
         }
         var ongoingRemaining: ClosedRange<CalendarDay>?
         if isOnPeriod {
-            let from = max(anchor.end.adding(days: 1), today)
+            // A logged anchor's days are already marked as logged; the hint's start day is not.
+            let from = isLoggedAnchor ? max(anchor.end.adding(days: 1), today) : today
             if from <= expectedPeriodEnd {
                 ongoingRemaining = from...expectedPeriodEnd
             }
