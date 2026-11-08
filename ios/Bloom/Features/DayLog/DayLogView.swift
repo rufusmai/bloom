@@ -233,8 +233,14 @@ private struct SexualActivityEditor: View {
                             .foregroundStyle(BloomColor.accent)
                     }
                     Spacer()
-                    Button("Remove", systemImage: "xmark.circle.fill") {
+                    Button {
                         activities.removeAll { $0.id == activity.id }
+                    } label: {
+                        Label {
+                            Text("Remove: \(Text(activity.protection.title))")
+                        } icon: {
+                            Image(systemName: "xmark.circle.fill")
+                        }
                     }
                     .labelStyle(.iconOnly)
                     .foregroundStyle(.secondary)

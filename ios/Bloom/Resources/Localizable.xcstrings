@@ -981,12 +981,12 @@
         }
       }
     },
-    "Remove" : {
+    "Remove: %@" : {
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Entfernen"
+            "value" : "Entfernen: %@"
           }
         }
       }
