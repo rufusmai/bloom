@@ -24,6 +24,23 @@ struct CyclePredictorTests {
         #expect(forecast.model.confidence == .low)
     }
 
+    @Test func hintOfTodayMarksTodayAsPeriod() {
+        let today = CalendarDay.d("2026-11-01")
+        let forecast = predictor.forecast(logs: [], today: today, lastPeriodStartHint: today)
+        #expect(forecast.status.phase == .menstruation)
+        #expect(forecast.status.cycleDay == 1)
+        #expect(forecast.ongoingPeriodRemaining == today...today.adding(days: 4))
+        #expect(forecast.markers(on: today).contains(.predictedPeriod))
+        #expect(!forecast.markers(on: today.adding(days: -1)).contains(.predictedPeriod))
+    }
+
+    @Test func hintFromEarlierMarksOnlyTheRestOfThePeriod() {
+        let today = CalendarDay.d("2026-11-01")
+        let forecast = predictor.forecast(logs: [], today: today, lastPeriodStartHint: today.adding(days: -2))
+        #expect(forecast.ongoingPeriodRemaining == today...today.adding(days: 2))
+        #expect(!forecast.markers(on: today.adding(days: -1)).contains(.predictedPeriod))
+    }
+
     @Test func hintIsIgnoredOnceAPeriodIsLogged() {
         let (logs, starts) = history(firstStart: .d("2026-10-10"), cycleLengths: [])
         let forecast = predictor.forecast(logs: logs, today: .d("2026-10-20"), lastPeriodStartHint: .d("2026-10-01"))
