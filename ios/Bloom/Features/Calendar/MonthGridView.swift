@@ -136,6 +136,8 @@ struct DayCellView: View {
         if markers.contains(.fertile) { parts.append(String(localized: "Fertile")) }
         if let log, !log.sexualActivities.isEmpty { parts.append(String(localized: "Sex")) }
         if let log, !log.symptoms.isEmpty { parts.append(String(localized: "Symptoms")) }
+        if log?.discharge != nil { parts.append(String(localized: "Discharge")) }
+        if let log, !log.note.isEmpty { parts.append(String(localized: "Note")) }
         return parts.joined(separator: ", ")
     }
 }
