@@ -81,6 +81,16 @@
         }
       }
     },
+    "Add: %@" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hinzufügen: %@"
+          }
+        }
+      }
+    },
     "All data stays on this device. bloom has no account, no cloud and no analytics." : {
       "localizations" : {
         "de" : {

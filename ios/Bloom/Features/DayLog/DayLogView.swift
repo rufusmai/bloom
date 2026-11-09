@@ -215,6 +215,10 @@ private struct SexualActivityEditor: View {
                     }
                     .buttonStyle(.bordered)
                     .tint(BloomColor.accent)
+                    // The logged entries below read "Protected" too; "Add" tells the button apart.
+                    // Voice Control keeps the visible word.
+                    .accessibilityLabel(Text("Add: \(Text(protection.title))"))
+                    .accessibilityInputLabels([Text(protection.title)])
                 }
             }
 
