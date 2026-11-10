@@ -30,11 +30,16 @@ public struct DayLog: Identifiable, Hashable, Codable, Sendable {
     /// Whether this day counts as a period day (spotting does not).
     public var isBleeding: Bool { flow?.countsAsPeriod == true }
 
+    /// Whether the note has any visible text. A note of only spaces or line breaks does not count.
+    public var hasNote: Bool {
+        !note.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+    }
+
     public var isEmpty: Bool {
         flow == nil
             && symptoms.isEmpty
             && discharge == nil
             && sexualActivities.isEmpty
-            && note.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+            && !hasNote
     }
 }

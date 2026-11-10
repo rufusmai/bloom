@@ -115,7 +115,7 @@ struct DayCellView: View {
                     .font(.system(size: 6))
                     .foregroundStyle(BloomColor.accent)
             }
-            if let log, !log.symptoms.isEmpty || log.discharge != nil || !log.note.isEmpty {
+            if let log, !log.symptoms.isEmpty || log.discharge != nil || log.hasNote {
                 Circle().fill(Color.secondary).frame(width: 5, height: 5)
             }
         }
@@ -137,7 +137,7 @@ struct DayCellView: View {
         if let log, !log.sexualActivities.isEmpty { parts.append(String(localized: "Sex")) }
         if let log, !log.symptoms.isEmpty { parts.append(String(localized: "Symptoms")) }
         if log?.discharge != nil { parts.append(String(localized: "Discharge")) }
-        if let log, !log.note.isEmpty { parts.append(String(localized: "Note")) }
+        if let log, log.hasNote { parts.append(String(localized: "Note")) }
         return parts.joined(separator: ", ")
     }
 }
