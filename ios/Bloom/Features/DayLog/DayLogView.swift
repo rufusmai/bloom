@@ -245,6 +245,10 @@ private struct SexualActivityEditor: View {
                         } icon: {
                             Image(systemName: "xmark.circle.fill")
                         }
+                        // The icon alone is about 22 pt. A 44 pt tap area that grows to the
+                        // left keeps the icon where it was, at the row's trailing edge.
+                        .frame(minWidth: 44, minHeight: 44, alignment: .trailing)
+                        .contentShape(.rect)
                     }
                     .labelStyle(.iconOnly)
                     .foregroundStyle(.secondary)
