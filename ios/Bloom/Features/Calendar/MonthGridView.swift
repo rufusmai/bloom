@@ -128,7 +128,7 @@ struct DayCellView: View {
     }
 
     private var accessibilityText: String {
-        var parts = [day.formatted(.dateTime.weekday(.wide).day().month(.wide))]
+        var parts = [day.formatted(.dateTime.weekday(.wide).day().month(.wide).year())]
         if isToday { parts.append(String(localized: "Today")) }
         if let flow = log?.flow { parts.append(String(localized: flow.title)) }
         if markers.contains(.predictedPeriod) { parts.append(String(localized: "Predicted period")) }
