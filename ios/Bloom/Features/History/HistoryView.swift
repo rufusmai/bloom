@@ -95,8 +95,10 @@ private struct CycleLengthChart: View {
                     y: .value("Days", Double(item.length ?? 0)),
                     width: .fixed(12)
                 )
-                .foregroundStyle(model.excludedCycleStarts.contains(item.start) ? Color.gray.opacity(0.4) : BloomColor.period)
+                .foregroundStyle(isExcluded(item) ? Color.gray.opacity(0.4) : BloomColor.period)
                 .cornerRadius(4)
+                .accessibilityLabel(Text(item.start.formatted(.dateTime.day().month(.abbreviated).year())))
+                .accessibilityValue(lengthValue(item))
             }
             RuleMark(y: .value("Average", model.cycleLength))
                 .foregroundStyle(BloomColor.accent)
@@ -104,6 +106,18 @@ private struct CycleLengthChart: View {
         }
         .chartYScale(domain: 0...max(40, longest + 5))
         .frame(height: 200)
+    }
+
+    private func isExcluded(_ item: Cycle) -> Bool {
+        model.excludedCycleStarts.contains(item.start)
+    }
+
+    /// The grey of a left-out bar is invisible to VoiceOver, so its value says it.
+    private func lengthValue(_ item: Cycle) -> Text {
+        let length = item.length ?? 0
+        return isExcluded(item)
+            ? Text("\(length) days, not used for predictions")
+            : Text("\(length) days")
     }
 }
 
