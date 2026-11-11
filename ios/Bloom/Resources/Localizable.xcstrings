@@ -41,6 +41,46 @@
         }
       }
     },
+    "%lld days, not used for predictions" : {
+      "localizations" : {
+        "de" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld Tag, nicht für Vorhersagen genutzt"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld Tage, nicht für Vorhersagen genutzt"
+                }
+              }
+            }
+          }
+        },
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld day, not used for predictions"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld days, not used for predictions"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "A few details" : {
       "localizations" : {
         "de" : {
