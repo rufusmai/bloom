@@ -30,7 +30,7 @@ struct DayLogView: View {
                     }
 
                     SectionCard("Symptoms", systemImage: "waveform.path.ecg") {
-                        FlowLayout(spacing: 8) {
+                        FlowLayout(spacing: 8, rowSpacing: 0) {
                             ForEach(Symptom.allCases, id: \.self) { symptom in
                                 Chip(symptom.title, isSelected: draft.symptoms.contains(symptom)) {
                                     toggle(symptom)
@@ -40,7 +40,7 @@ struct DayLogView: View {
                     }
 
                     SectionCard("Discharge", systemImage: "humidity") {
-                        FlowLayout(spacing: 8) {
+                        FlowLayout(spacing: 8, rowSpacing: 0) {
                             ForEach(DischargeType.allCases, id: \.self) { type in
                                 Chip(type.title, isSelected: draft.discharge == type, tint: BloomColor.fertile) {
                                     draft.discharge = draft.discharge == type ? nil : type

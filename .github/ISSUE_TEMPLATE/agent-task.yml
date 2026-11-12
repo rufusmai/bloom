@@ -1,0 +1,42 @@
+name: Agent task
+description: A feature or fix for the agents to build. A run picks it up within 8 hours.
+labels: ["agent:ready"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        The agents run at 02:00, 10:00 and 18:00 (Berlin). They build issues labeled `agent:ready`, open a PR, and a later run reviews and merges it.
+        Add the `priority:high` label to have this picked first. If the agents have questions, they comment here (starting with "🤖 Agent:") and send you a push notification; just reply with a normal comment.
+  - type: textarea
+    id: what
+    attributes:
+      label: What
+      description: The feature or change, in plain words.
+      placeholder: "e.g. Remind me two days before my predicted period."
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why
+      description: Who needs it and what problem it solves.
+    validations:
+      required: false
+  - type: textarea
+    id: done
+    attributes:
+      label: Done when
+      description: How you'll know it's finished, one check per line.
+      placeholder: |
+        - Settings has a reminder switch, off by default
+        - A local notification arrives two days before the predicted start
+        - Works in German and English
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes
+      description: Anything else, like links, screenshots, constraints or things not to touch.
+    validations:
+      required: false

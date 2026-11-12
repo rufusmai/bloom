@@ -46,6 +46,11 @@ struct Chip: View {
                 .padding(.vertical, 8)
                 .foregroundStyle(isSelected ? Color.white : Color.primary)
                 .background(isSelected ? tint : BloomColor.chipBackground, in: .capsule)
+                // The capsule is about 36 pt tall. Invisible space above and below makes the
+                // tap area at least 44 pt; `FlowLayout(rowSpacing: 0)` keeps the visible gap.
+                .padding(.vertical, 4)
+                .frame(minHeight: 44)
+                .contentShape(.rect)
         }
         .buttonStyle(.plain)
         .accessibilityAddTraits(isSelected ? .isSelected : [])
@@ -86,6 +91,8 @@ struct InfoCard: View {
 /// Lays out its children in rows, wrapping to the next row when needed.
 struct FlowLayout: Layout {
     var spacing: CGFloat = 8
+    /// Space between rows. `nil` uses `spacing`.
+    var rowSpacing: CGFloat?
 
     func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
         arrange(width: proposal.width ?? .infinity, subviews: subviews).size
@@ -111,7 +118,7 @@ struct FlowLayout: Layout {
             let size = subview.sizeThatFits(.unspecified)
             if origin.x > 0, origin.x + size.width > width {
                 origin.x = 0
-                origin.y += rowHeight + spacing
+                origin.y += rowHeight + (rowSpacing ?? spacing)
                 rowHeight = 0
             }
             frames.append(CGRect(origin: origin, size: size))
