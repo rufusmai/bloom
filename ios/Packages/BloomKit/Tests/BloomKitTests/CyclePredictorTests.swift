@@ -164,6 +164,18 @@ struct CyclePredictorTests {
         #expect(next.periodStart == today)
     }
 
+    /// Today hides these while late (TodayView), because they no longer lie ahead.
+    @Test func latePeriodKeepsThisCyclesPastFertileWindow() throws {
+        let (logs, starts) = history(firstStart: .d("2026-03-01"), cycleLengths: Array(repeating: 28, count: 6))
+        let today = starts.last!.adding(days: 28 + 3)
+        let forecast = predictor.forecast(logs: logs, today: today)
+
+        #expect(forecast.status.phase == .late)
+        let next = try #require(forecast.nextPeriod)
+        #expect(next.ovulation < today)
+        #expect(next.fertileWindow.upperBound < today)
+    }
+
     @Test func expectedTodayIsNotLate() {
         let (logs, starts) = history(firstStart: .d("2026-03-01"), cycleLengths: Array(repeating: 28, count: 6))
         let today = starts.last!.adding(days: 28)

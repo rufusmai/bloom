@@ -38,7 +38,11 @@ struct TodayView: View {
                     .controlSize(.large)
 
                     if let next = cycle.forecast.nextPeriod {
-                        PredictionSummary(next: next, model: cycle.forecast.model)
+                        PredictionSummary(
+                            next: next,
+                            model: cycle.forecast.model,
+                            isLate: status.phase == .late
+                        )
                     }
 
                     Text("bloom is not a contraceptive and does not replace medical advice.")
@@ -73,9 +77,14 @@ struct TodayView: View {
 }
 
 /// Cards for the next period, ovulation and fertile window.
+///
+/// While the period is late, this cycle's ovulation and fertile window lie in
+/// the past and rest on a cycle length that turned out wrong, so a note takes
+/// their place until the period is logged.
 private struct PredictionSummary: View {
     let next: PredictedCycle
     let model: LearnedCycleModel
+    let isLate: Bool
 
     var body: some View {
         VStack(spacing: 12) {
@@ -86,19 +95,23 @@ private struct PredictionSummary: View {
                 systemImage: "drop.fill",
                 tint: BloomColor.period
             )
-            HStack(spacing: 12) {
-                InfoCard(
-                    title: "Ovulation",
-                    value: next.ovulation.shortTitle,
-                    systemImage: "sparkle",
-                    tint: BloomColor.ovulation
-                )
-                InfoCard(
-                    title: "Fertile window",
-                    value: "\(next.fertileWindow.lowerBound.formatted(.dateTime.day().month(.abbreviated))) – \(next.fertileWindow.upperBound.formatted(.dateTime.day().month(.abbreviated)))",
-                    systemImage: "leaf.fill",
-                    tint: BloomColor.fertile
-                )
+            if isLate {
+                LatePeriodNote()
+            } else {
+                HStack(spacing: 12) {
+                    InfoCard(
+                        title: "Ovulation",
+                        value: next.ovulation.shortTitle,
+                        systemImage: "sparkle",
+                        tint: BloomColor.ovulation
+                    )
+                    InfoCard(
+                        title: "Fertile window",
+                        value: "\(next.fertileWindow.lowerBound.formatted(.dateTime.day().month(.abbreviated))) – \(next.fertileWindow.upperBound.formatted(.dateTime.day().month(.abbreviated)))",
+                        systemImage: "leaf.fill",
+                        tint: BloomColor.fertile
+                    )
+                }
             }
             HStack(spacing: 4) {
                 if model.cyclesUsed == 0 {
@@ -112,6 +125,24 @@ private struct PredictionSummary: View {
             .font(.footnote)
             .foregroundStyle(.secondary)
         }
+    }
+}
+
+/// Shown instead of the ovulation and fertile window cards while the period is late.
+private struct LatePeriodNote: View {
+    var body: some View {
+        VStack(alignment: .leading, spacing: 6) {
+            Label("Later than usual", systemImage: "clock")
+                .font(.subheadline.weight(.medium))
+                .foregroundStyle(BloomColor.accent)
+            Text("Your period is later than usual, so this cycle's ovulation and fertile window estimates are hidden. Predictions update when you log your period.")
+                .font(.subheadline)
+                .fixedSize(horizontal: false, vertical: true)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding()
+        .background(BloomColor.cardBackground, in: .rect(cornerRadius: 20))
+        .accessibilityElement(children: .combine)
     }
 }
 
