@@ -7,6 +7,8 @@ struct CycleRingView: View {
 
     private let lineWidth: CGFloat = 18
 
+    private var isLate: Bool { forecast.status.phase == .late }
+
     var body: some View {
         let geometry = RingGeometry(forecast: forecast)
         ZStack {
@@ -14,7 +16,8 @@ struct CycleRingView: View {
                 .stroke(Color.secondary.opacity(0.15), lineWidth: lineWidth)
 
             if let geometry {
-                arc(geometry.fertile, color: BloomColor.fertile.opacity(0.75))
+                // While the period is late, this cycle's fertile window is a past estimate.
+                arc(geometry.fertile, color: BloomColor.fertile.opacity(isLate ? 0.25 : 0.75))
                 arc(geometry.period, color: BloomColor.period)
                 todayMarker(at: geometry.today)
             }
