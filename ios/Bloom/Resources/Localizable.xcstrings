@@ -1241,6 +1241,16 @@
         }
       }
     },
+    "bloom has no complete cycle to learn from yet, so the cycle length is the one from Settings and the variability a typical value." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "bloom hat noch keinen vollständigen Zyklus zum Lernen, daher stammt die Zykluslänge aus den Einstellungen und die Schwankung ist ein typischer Wert."
+          }
+        }
+      }
+    },
     "bloom is not a contraceptive and does not replace medical advice." : {
       "localizations" : {
         "de" : {
