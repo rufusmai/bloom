@@ -17,7 +17,13 @@ struct HistoryView: View {
                     } header: {
                         Text("What bloom has learned")
                     } footer: {
-                        Text("Recent cycles count more. Unusual cycles, for example after a forgotten log, are left out.")
+                        // Until a cycle can be used, the numbers are priors, as Today's
+                        // "Based on your settings" says; don't present them as learned.
+                        if model.cyclesUsed == 0 {
+                            Text("bloom has no complete cycle to learn from yet, so the cycle length is the one from Settings and the variability a typical value.")
+                        } else {
+                            Text("Recent cycles count more. Unusual cycles, for example after a forgotten log, are left out.")
+                        }
                     }
 
                     if !completed.isEmpty {
