@@ -122,9 +122,17 @@ struct DayCellView: View {
     }
 
     private var textColor: Color {
-        if loggedFlow != nil { return .white }
+        if let loggedFlow { return Self.numberColor(on: loggedFlow) }
         if isFuture { return .secondary }
         return .primary
+    }
+
+    /// The day number's colour on a logged period day's fill, chosen for at least 4.5:1 contrast.
+    /// White reaches only 1.8–3.6:1 on the light-mode fills and 2.7:1 on the dark-mode heavy fill.
+    /// The light fill is pale in both schemes, so the normal text colour stays readable on it
+    /// (12:1 light, 9:1 dark); medium and heavy fills take black (4.6:1 or more in both schemes).
+    private static func numberColor(on flow: FlowIntensity) -> Color {
+        flow == .light ? .primary : .black
     }
 
     private var accessibilityText: String {
