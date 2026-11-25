@@ -1121,6 +1121,16 @@
         }
       }
     },
+    "There is nothing to export yet. Log a day first." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Noch nichts zu exportieren. Trage zuerst einen Tag ein."
+          }
+        }
+      }
+    },
     "This permanently deletes all logged days from this device. It cannot be undone." : {
       "localizations" : {
         "de" : {
