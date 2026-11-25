@@ -87,7 +87,7 @@ struct DayLogView: View {
             }
             .labelStyle(.iconOnly)
 
-            Text(day.formatted(.dateTime.weekday(.abbreviated).day().month(.wide)))
+            Text(day.dayLogTitle(today: cycle.today))
                 .font(.headline)
                 .lineLimit(1)
                 .minimumScaleFactor(0.8)

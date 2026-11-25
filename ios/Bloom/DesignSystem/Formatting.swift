@@ -18,6 +18,16 @@ extension CalendarDay {
     var mediumTitle: String {
         formatted(.dateTime.day().month(.wide))
     }
+
+    /// The day log's title, e.g. "Mon, 3 November", or "Mon, 3 Nov 2025" for a day in
+    /// another year than `today`, which the title would otherwise not tell apart.
+    func dayLogTitle(today: CalendarDay) -> String {
+        if year == today.year {
+            formatted(.dateTime.weekday(.abbreviated).day().month(.wide))
+        } else {
+            formatted(.dateTime.weekday(.abbreviated).day().month(.abbreviated).year())
+        }
+    }
 }
 
 extension FlowIntensity {
