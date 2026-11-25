@@ -42,12 +42,20 @@ struct SettingsView: View {
                     Label("All data stays on this device. bloom has no account, no cloud and no analytics.", systemImage: "lock.shield")
                 }
 
-                Section("Your data") {
+                Section {
                     Button("Export data (JSON)", systemImage: "square.and.arrow.up") {
                         export()
                     }
+                    // An export without a single logged day would be an empty file.
+                    .disabled(hasNoLogs)
                     Button("Delete all data", systemImage: "trash", role: .destructive) {
                         confirmsDeletion = true
+                    }
+                } header: {
+                    Text("Your data")
+                } footer: {
+                    if hasNoLogs {
+                        Text("There is nothing to export yet. Log a day first.")
                     }
                 }
 
@@ -101,6 +109,8 @@ struct SettingsView: View {
             }
         }
     }
+
+    private var hasNoLogs: Bool { cycle.logsByDay.isEmpty }
 
     private var appVersion: String {
         Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "–"
