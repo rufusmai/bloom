@@ -109,9 +109,25 @@ private struct CycleLengthChart: View {
             RuleMark(y: .value("Average", model.cycleLength))
                 .foregroundStyle(BloomColor.accent)
                 .lineStyle(StrokeStyle(lineWidth: 1.5, dash: [4, 4]))
+                // Without a label nothing says what the dashed line is.
+                .annotation(position: .top, alignment: .leading, spacing: 2) {
+                    averageLabel
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+                .accessibilityLabel(averageLabel)
         }
         .chartYScale(domain: 0...max(40, longest + 5))
         .frame(height: 200)
+    }
+
+    /// The line is the cycle length predictions use: learned from the cycles,
+    /// or the one from Settings while no cycle can be used.
+    private var averageLabel: Text {
+        let days = Int(model.cycleLength.rounded())
+        return model.cyclesUsed == 0
+            ? Text("Settings: \(days) days")
+            : Text("Average: \(days) days")
     }
 
     private func isExcluded(_ item: Cycle) -> Bool {
