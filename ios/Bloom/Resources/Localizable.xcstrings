@@ -151,6 +151,46 @@
         }
       }
     },
+    "Average: %lld days" : {
+      "localizations" : {
+        "de" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Durchschnitt: %lld Tag"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Durchschnitt: %lld Tage"
+                }
+              }
+            }
+          }
+        },
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Average: %lld day"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Average: %lld days"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "Back pain" : {
       "localizations" : {
         "de" : {
@@ -1047,6 +1087,46 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Einstellungen"
+          }
+        }
+      }
+    },
+    "Settings: %lld days" : {
+      "localizations" : {
+        "de" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Einstellungen: %lld Tag"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Einstellungen: %lld Tage"
+                }
+              }
+            }
+          }
+        },
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Settings: %lld day"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Settings: %lld days"
+                }
+              }
+            }
           }
         }
       }
